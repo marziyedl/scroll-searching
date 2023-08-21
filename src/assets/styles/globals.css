@@ -105,3 +105,31 @@ a {
     color-scheme: dark;
   }
 }
+.d-block {
+  display: block;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.text-lg {
+  font-size: 1.25rem;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.align-items-start {
+  align-items: flex-start;
+}
+
+.m-1{
+  margin: .25rem;
+}
+.w-100{
+  width: 100%;
+}
+
+
