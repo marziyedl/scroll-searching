@@ -131,5 +131,37 @@ a {
 .w-100{
   width: 100%;
 }
+.box-shadow{
+  box-shadow: 1px 3px 10px rgba(0, 0, 0, 0.5);
+}
+.col-4 {
+  flex: 0 0 33.333333%;
+  max-width: 33.333333%;
+  padding: 15px;
+  box-sizing: border-box;
+}
+.col-6 {
+  flex: 0 0 50%;
+  max-width: 50%;
+  padding: 15px;
+  box-sizing: border-box;
+}
+.col-12 {
+  flex: 0 0 100%;
+  max-width: 100%;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+@media (max-width: 787px) {
+  .col-sm-12 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
 
 

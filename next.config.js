@@ -15,6 +15,14 @@ const nextConfig = {
 
     return config;
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "i.dietdoctor.com",
+      },
+    ],
+  },
 };
 
 module.exports = nextConfig;

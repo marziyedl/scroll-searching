@@ -16,3 +16,12 @@
   font-size: 18px;
   box-shadow: 1px 3px 10px rgba(0, 0, 0, 0.5);
 }
+.image {
+  object-fit: contain;
+  width: 100% ;
+  position: relative !important;
+  height: unset !important;
+}
+.selected{
+  box-shadow: 1px 3px 10px rgba(0, 0, 0, 0.5);
+}
