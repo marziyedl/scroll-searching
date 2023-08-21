@@ -7,9 +7,6 @@ import { Input, ListRecipes, Recipe } from "@/types";
 import InfiniteScroll from "@/components/InfiniteScroll";
 
 import { useState, useEffect } from "react";
-import { NAVIGATION_KEYS } from "@/utils/constant";
-
-
 
 export default function Home() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
@@ -18,9 +15,8 @@ export default function Home() {
     pageSize: 5,
     page: 1,
   });
-  const [selectedCard, setSelectedCard] = useState<string | null>(null);
 
-  const [getSearchedRecipes, { loading, fetchMore }] = useLazyQuery<
+  const [getSearchedRecipes, { loading, fetchMore, error }] = useLazyQuery<
     ListRecipes,
     { input: Input }
   >(listRecipes, {
@@ -42,7 +38,6 @@ export default function Home() {
   useEffect(() => {
     const fetchMoreData = () => {
       const nextPage = queryInputs.page;
-      console.log(nextPage);
       fetchMore({
         variables: { input: { ...queryInputs, page: nextPage } },
         updateQuery: (prev, { fetchMoreResult }) => {
@@ -64,7 +59,7 @@ export default function Home() {
         },
       });
     };
-    if (queryInputs.page == 1) return;
+    if (queryInputs.page === 1) return;
     fetchMoreData();
   }, [queryInputs.page]);
 
@@ -75,58 +70,8 @@ export default function Home() {
     }));
   };
 
-  useEffect(() => {
-    const handleKeyPress = (e: KeyboardEvent) => {
-      if (recipes.length === 0) {
-        return;
-      }
-      if (!selectedCard) {
-        setSelectedCard(recipes[0].id);
-      } else if (e.key === NAVIGATION_KEYS.ARROW_RIGHT) {
-        const nextSibling =
-          document.getElementById(selectedCard)?.nextElementSibling;
-        if (!nextSibling) {
-          return;
-        }
-        setSelectedCard(nextSibling.id);
-        nextSibling.scrollIntoView({
-          behavior: "smooth",
-          block: "nearest",
-        });
-      } else if (e.key === NAVIGATION_KEYS.ARROW_LEFT) {
-        const previousSibling =
-          document.getElementById(selectedCard)?.previousElementSibling;
-        if (!previousSibling) {
-          return;
-        }
-        setSelectedCard(previousSibling.id);
-        previousSibling.scrollIntoView({
-          behavior: "smooth",
-          block: "nearest",
-        });
-      }
-    };
+  const renderItem = (item: Recipe) => <Card key={item.id} recipe={item} />;
 
-    document.addEventListener("keyup", handleKeyPress);
-
-    return () => {
-      document.removeEventListener("keyup", handleKeyPress);
-    };
-  }, [selectedCard, recipes]);
-
-  const handleSelect = (id: string) => {
-    setSelectedCard(id);
-  };
-
-  const renderItem = (item: Recipe) => (
-    <Card
-      key={item.id}
-      recipe={item}
-      selected={item.id === selectedCard}
-      handleSelect={handleSelect}
-    />
-  );
-  
   return (
     <main className={styles.main}>
       <SearchBox onChange={handleChange} />
@@ -136,6 +81,7 @@ export default function Home() {
         isLoading={loading}
         data={recipes || []}
       />
+      {error && <strong>Error...</strong>}
     </main>
   );
 }

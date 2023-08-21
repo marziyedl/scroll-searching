@@ -14,15 +14,12 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
   isLoading,
   data,
 }) => {
-
   useEffect(() => {
     const handleScroll = () => {
-      if (
-        window.innerHeight + document.documentElement.scrollTop ===
-        document.documentElement.offsetHeight
-      ) {
-        fetchData();
-      }
+      const scrollPosition =window.innerHeight + document.documentElement.scrollTop;
+      const offsetHeight = document.documentElement.offsetHeight;
+
+      if (scrollPosition === offsetHeight)  fetchData();
     };
 
     window.addEventListener("scroll", handleScroll);
