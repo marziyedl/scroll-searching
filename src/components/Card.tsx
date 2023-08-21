@@ -9,18 +9,19 @@ type Props = {
 
 export default function Card({ recipe, selected, handleSelect }: Props) {
   return (
-    <div
+    <a
+      tabIndex={0}
       id={recipe.id}
-      className={`col-4 col-sm-12${selected ? " box-shadow" : ""}`}
+      className={`col-4 col-sm-12 ${selected && " box-shadow"}`}
       onClick={() => handleSelect(recipe.id)}
     >
       <Image
         src={`https://i.dietdoctor.com/${recipe.images.defaultImage.path}`}
         alt="recipe"
-        layout="fill"
         className={styles.image}
-        placeholder="blur"
-        blurDataURL={"/assets/images/blur.jpg"}
+        layout="responsive"
+        width={230}
+        height={208}
       />
 
       <div className="container">
@@ -29,6 +30,6 @@ export default function Card({ recipe, selected, handleSelect }: Props) {
         </h4>
         <p>{recipe.description}</p>
       </div>
-    </div>
+    </a>
   );
 }
