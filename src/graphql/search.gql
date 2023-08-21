@@ -1,0 +1,18 @@
+query ListRecipes($input: ListRecipesInput) {
+  listRecipes(input: $input) {
+    recipes {
+      id
+      slug
+      satietyScore
+      rating
+      description
+      descriptionHtml
+      title
+      images {
+        defaultImage {
+          path
+        }
+      }
+    }
+  }
+}
